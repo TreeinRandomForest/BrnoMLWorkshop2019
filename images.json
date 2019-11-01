@@ -1,0 +1,130 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "items": [
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "s2i-ml-workshop-notebook-base",
+                "labels": {
+                    "build": "s2i-ml-workshop-notebook-base"
+                }
+            },
+            "spec": {
+                "lookupPolicy": {
+                    "local": true
+                }
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "s2i-ml-workshop-notebook-base",
+                "labels": {
+                    "build": "s2i-ml-workshop-notebook-base"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange"
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "https://github.com/vpavlin/jupyter-notebooks"
+                    },
+                    "contextDir": "minimal-notebook"
+                },
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "quay.io/vpavlin/s2i-ml-workshop-notebook-base:latest"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "s2i-ml-workshop-notebook-base:3.6"
+                    }
+                },
+                "resources": {
+                    "limits": {
+                        "memory": "1Gi"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "s2i-ml-workshop-notebook",
+                "labels": {
+                    "build": "s2i-ml-workshop-notebook"
+                }
+            },
+            "spec": {
+                "lookupPolicy": {
+                    "local": true
+                }
+            }
+        },
+        {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "s2i-ml-workshop-notebook",
+                "labels": {
+                    "build": "s2i-ml-workshop-notebook"
+                }
+            },
+            "spec": {
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "ImageChange"
+                    }
+                ],
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "https://github.com/vpavlin/BrnoMLWorkshop2019"
+                    },
+                    "contextDir": "BrnoTeaching2019"
+                },
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "s2i-ml-workshop-notebook-base:3.6"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "s2i-ml-workshop-notebook:3.6"
+                    }
+                },
+                "resources": {
+                    "limits": {
+                        "memory": "2Gi"
+                    }
+                }
+            }
+        }
+    ]
+}
