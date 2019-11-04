@@ -6,9 +6,9 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "s2i-ml-workshop-notebook-base",
+                "name": "s2i-ml-workshop-base",
                 "labels": {
-                    "build": "s2i-ml-workshop-notebook-base"
+                    "build": "s2i-ml-workshop-base"
                 }
             },
             "spec": {
@@ -21,9 +21,9 @@
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
-                "name": "s2i-ml-workshop-notebook-base",
+                "name": "s2i-ml-workshop-base",
                 "labels": {
-                    "build": "s2i-ml-workshop-notebook-base"
+                    "build": "s2i-ml-workshop-base"
                 }
             },
             "spec": {
@@ -54,7 +54,7 @@
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "s2i-ml-workshop-notebook-base:3.6"
+                        "name": "s2i-ml-workshop-base:3.6"
                     }
                 },
                 "resources": {
@@ -100,7 +100,7 @@
                 "source": {
                     "type": "Git",
                     "git": {
-                        "uri": "https://github.com/vpavlin/BrnoMLWorkshop2019"
+                        "uri": "https://github.com/TreeinRandomForest/BrnoMLWorkshop2019"
                     },
                     "contextDir": "BrnoTeaching2019"
                 },
@@ -109,7 +109,7 @@
                     "sourceStrategy": {
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "s2i-ml-workshop-notebook-base:3.6"
+                            "name": "s2i-ml-workshop-base:3.6"
                         }
                     }
                 },
